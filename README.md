@@ -1,2 +1,1 @@
-Ce système expert définit des règles pour évaluer et recommander des éléments liés à la santé, tels que les besoins caloriques, les recommandations alimentaires, les portions, l'hydratation et les ajustements en cas de non-atteinte des objectifs de santé.
-Il utilise des prédicats logiques pour évaluer différentes conditions, comme le sexe, l'âge, les taux de cholestérol et de sucre dans le sang, les objectifs de santé, l'activité physique, la température ambiante, le régime alimentaire et le suivi des objectifs de santé.
+
