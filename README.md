@@ -1,12 +1,73 @@
-# Personalized-nutrition-advice-Expert-System
-Personalization of recommendations Advice based on precise data : It can take into account the needs specific to each individual depending on their age, their weight, their level physical activity, health goals and their food preferences.
+# University Chatbot
+This project is a document retrieval and question-answering system designed to provide detailed answers based on documents stored in a directory. It uses various tools and libraries, including **LangChain**, **Ollama**, and **ChromaDB**, to extract, process, and query information from documents related to the **Institut Supérieur d'Informatique** (ISI). 
 
-## Software Environment 
-  * Python is a popular and versatile programming language, often used for application development, creating websites, data analysis, artificial intelligence.
-  * Expera is a Python library used for creating expert systems. It provides tools for developing rule-based systems and inference engines, thus allowing the creation of applications.
-  * Tkinter is a graphics library built into Python. She allows you to create graphical user interfaces (GUI). With Tkinter, programmers can design windows, buttons, text fields and other interface elements graphics for their Python applications.
+## Installation
 
-## Demo 
-[Female.webm](https://github.com/ines-22/Personalized-nutrition-advice-Expert-System/assets/76628788/40c4120e-d99e-4443-9fe2-b53d76e5b79e)
+1. **Mount Google Drive** to access files stored there:
+    ```python
+    from google.colab import drive
+    drive.mount('/content/drive')
+    ```
 
-[Male.webm](https://github.com/ines-22/Personalized-nutrition-advice-Expert-System/assets/76628788/ff28f612-ca40-4f01-89ba-3316e8aa6b4f)
+2. **Install Required Libraries**:
+    ```bash
+    !pip install -q colab-xterm PyPDF2 xlrd pypdf pandas python-docx langchain docx2txt transformers ollama chromadb langchain-ollama openpyxl
+    !pip install --upgrade --quiet langchain-community unstructured openpyxl
+    ```
+
+3. **Pull LLM Model** (Ollama):
+    ```bash
+    !ollama pull llama3.1
+    ```
+
+## Usage
+
+1. **Document Loading**: 
+    - Specify the directory to load documents from:
+    ```python
+    parent_directory = '/content/drive/MyDrive/Dossier_Accreditation CTI_ISI_2024__'
+    documents = load_documents_from_directory(parent_directory)
+    ```
+
+2. **Preprocess Text**: 
+    - Clean the text before storing it in the vectorstore:
+    ```python
+    documents = preprocess_text(documents)
+    ```
+
+3. **Create Vector Store**:
+    - Generate embeddings and store them in ChromaDB:
+    ```python
+    vectorstore = create_vectorstore(documents, embedding_model)
+    ```
+
+4. **Querying the System**:
+    - Use `query_with_context` to get answers based on your question:
+    ```python
+    question = "C'est qui Mr Salah Salhi?"
+    answer = query_with_context(question)
+    print(answer)
+    ```
+
+## Functions
+
+### `load_documents_from_directory(directory)`
+- Loads documents from specified directory, filtering for supported file types.
+
+### `load_and_extract_text(file_path)`
+- Extracts text based on file type using respective libraries.
+
+### `preprocess_text(text_list)`
+- Preprocesses extracted text, cleaning it for optimal performance in embeddings and querying.
+
+### `create_vectorstore(documents, embedding_model, chunk_size=1000, chunk_overlap=100)`
+- Creates and stores document embeddings in a ChromaDB vectorstore with chunking.
+
+### `query_with_context(question, top_k=5)`
+- Retrieves top matching document contexts and queries the LLM to answer the provided question.
+
+## Dependencies
+
+- [LangChain](https://github.com/hwchase17/langchain)
+- [Ollama](https://ollama.com/)
+- [ChromaDB](https://www.trychroma.com/)
